@@ -1,0 +1,5 @@
+device_type,host,username,password
+cisco_ios,192.168.65.101,s1,admin
+cisco_ios,192.168.65.102,s2,admin
+cisco_ios,192.168.65.103,s3,admin
+cisco_ios,192.168.65.104,s4,admin

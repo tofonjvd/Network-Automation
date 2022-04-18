@@ -1,0 +1,3 @@
+ID,NAME,SHUTDOWN,INTERFACES
+10,management,no,gigabitEthernet 1/0-gigabitEthernet 1/1-gigabitEthernet 1/2-gigabitEthernet 1/3
+20,finance,no,gigabitEthernet 2/0-gigabitEthernet 2/1-gigabitEthernet 2/2-gigabitEthernet 2/3
