@@ -1,8 +1,8 @@
 import devices_config
 
-vlan_file = "D:\\python\\courses\\udemy\\projects\\pycharm\\network_automation\\vlan_automation_file.csv"
-trunk_file = "D:\\python\\courses\\udemy\\projects\\pycharm\\network_automation\\trunk_automation_file.csv"
-devices_file = "D:\\python\\courses\\udemy\\projects\\pycharm\\network_automation\\devices_list.csv"
+vlan_file = "path to vlan_automation_file.csv"
+trunk_file = "path to trunk_automation_file.csv"
+devices_file = "path to devices_list.csv"
 
 obj_device = devices_config.Cisco_IOS_Switch
 obj_make_list_of_devices = devices_config.Cisco_IOS_Switch.make_devices(devices_file_path=devices_file)
