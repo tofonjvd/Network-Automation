@@ -5,6 +5,7 @@ import json
 class Show_Commands():
     def commands_list(all_devices=None):
 
+        #List of all of our show commands
         list_of_commands = ["show mac address-table",
                             "show mac address-table dynamic",
                             "show mac address-table dynamic vlan ",
@@ -13,12 +14,14 @@ class Show_Commands():
                             "show mac address-table count",
                             "show mac address-table aging-time",
                             "show interfaces status"]
-
+        #Printing all of show commands in console so user can pick one of them.
         for index,each_command in enumerate(list_of_commands):
             print(f"{each_command}[{index}]")
 
         command_to_issue_index = int(input("Choose one:"))
 
+        #Some of show commands need an additional interface-ID/vlan-ID/mac-address. so we are getting that
+        #information here
         additional_variable = str()
 
         if command_to_issue_index == 2:
@@ -28,6 +31,7 @@ class Show_Commands():
         if command_to_issue_index == 4:
             additional_variable = input("Write the interface-id[Example->gigabitethernet 0/0]:")
 
+        #The device's ip address that we want to issue the show command on.
         device_ip_address = input("Write the ip address of your device:")
 
         for each_device in all_devices:
