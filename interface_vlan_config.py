@@ -1,7 +1,10 @@
 import csv
 
 class Cisco_Interface_Vlan_Config():
-    def interface_vlan_config(interface_vlan_attributes_file=None, ssh_to_device=None):
+    def interface_vlan_config(interface_vlan_attributes_file=None, ssh_to_device=None, line=None):
+        #The $interface_vlan_attributes_file indicates each line of the $config_file_path. because we must configure each line only on the
+        # $DEVICES that are in that specific line starting.
+        line_specifier = 0
         with open(interface_vlan_attributes_file, mode="r") as vlans_file:
             interface_vlans_data = csv.reader(vlans_file)
             # For ignoring the first line of our file which contains the headers.
@@ -11,10 +14,12 @@ class Cisco_Interface_Vlan_Config():
             while (True):
                 try:
                     interface_vlans_file_each_row = next(interface_vlans_data)
-                    id = interface_vlans_file_each_row[0]
-                    interfaces_list = interface_vlans_file_each_row[3].split("-")
-                    for each_interface in interfaces_list:
-                        command = [f"interface {each_interface}", f"switchport access vlan {id}"]
-                        ssh_to_device.send_config_set(command)
+                    line_specifier += 1
+                    id = interface_vlans_file_each_row[1]
+                    interfaces_list = interface_vlans_file_each_row[4].split("-")
+                    if line_specifier == line:
+                        for each_interface in interfaces_list:
+                            command = [f"interface {each_interface}", f"switchport access vlan {id}"]
+                            ssh_to_device.send_config_set(command)
                 except StopIteration as error:
                     break
