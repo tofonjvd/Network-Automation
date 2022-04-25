@@ -15,11 +15,12 @@ class Cisco_Interface_Vlan_Config():
                 try:
                     interface_vlans_file_each_row = next(interface_vlans_data)
                     line_specifier += 1
-                    id = interface_vlans_file_each_row[1]
-                    interfaces_list = interface_vlans_file_each_row[4].split("-")
+                    vlan_id = interface_vlans_file_each_row[1]
+                    voice_vlan_id = interface_vlans_file_each_row[2]
+                    interfaces_list = interface_vlans_file_each_row[3].split("-")
                     if line_specifier == line:
                         for each_interface in interfaces_list:
-                            command = [f"interface {each_interface}", f"switchport access vlan {id}"]
+                            command = [f"interface {each_interface}", f"switchport access vlan {vlan_id}", f"switchport voice vlan {voice_vlan_id}"]
                             ssh_to_device.send_config_set(command)
                 except StopIteration as error:
                     break

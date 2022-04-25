@@ -1,4 +1,5 @@
-DEVICES,ID,NAME,SHUTDOWN,INTERFACES
-192.168.65.101-192.168.65.104,10,management,no,gigabitEthernet 1/0-gigabitEthernet 1/1-gigabitEthernet 1/2-gigabitEthernet 1/3
-192.168.65.102-192.168.65.103,20,finance,no,gigabitEthernet 2/0-gigabitEthernet 2/1-gigabitEthernet 2/2-gigabitEthernet 2/3
-192.168.65.104,40,finance,no,gigabitEthernet 2/0
+DEVICES,ID,NAME,SHUTDOWN,VTP_MODE
+192.168.65.21-192.168.65.24,10,management_vlan,no,transparent
+192.168.65.21-192.168.65.24,20,management_voice,no,transparent
+192.168.65.22-192.168.65.23,30,finance_vlan,no,transparent
+192.168.65.22-192.168.65.23,40,finance_voice,no,transparent
