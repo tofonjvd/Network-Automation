@@ -39,19 +39,42 @@ class Cisco_Interface_Ip_Address_Config():
                     subnet = interface_ip_file_each_row[3]
                     shutdown = interface_ip_file_each_row[4]
                     dhcp = interface_ip_file_each_row[5]
-
+                    duplex = interface_ip_file_each_row[6]
+                    speed = interface_ip_file_each_row[7]
 
                     if line_specifier == line:
                         Cisco_Interface_Ip_Address_Config.device_interface_switchport(
                             ssh_to_device=ssh_to_device,
                             interface=interface)
-                        if dhcp == "yes":
-                            command = [f"interface {interface}", f"ip address dhcp"]
+                        if interface.split(" ")[0] == "vlan":
+                            if dhcp == "yes":
+                                command = [f"interface {interface}",
+                                           f"ip address dhcp"]
+                            else:
+                                command = [f"interface {interface}",
+                                           f"ip address {ip} {subnet}"]
+                            ssh_to_device.send_config_set(command)
                         else:
-                            command = [f"interface {interface}", f"ip address {ip} {subnet}"]
-                        ssh_to_device.send_config_set(command)
+                            if dhcp == "yes":
+                                command = [f"interface {interface}",
+                                           f"ip address dhcp",
+                                           f"no negotiation auto",
+                                           f"duplex {duplex}",
+                                           f"speed {speed}"]
+                            else:
+                                command = [f"interface {interface}",
+                                           f"ip address {ip} {subnet}",
+                                           f"no negotiation auto",
+                                           f"duplex {duplex}",
+                                           f"speed {speed}"]
+                            ssh_to_device.send_config_set(command)
+
                         if shutdown == "no":
-                            command = [f"interface {interface}", f"no shutdown"]
+                            command = [f"interface {interface}",
+                                       f"no shutdown"]
+                        else:
+                            command = [f"interface {interface}",
+                                       f"shutdown"]
                         ssh_to_device.send_config_set(command)
                 except StopIteration as error:
                     break

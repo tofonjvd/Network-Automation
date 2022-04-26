@@ -20,9 +20,14 @@ class Vlan_For_Cisco_IOS():
                     shutdown = vlans_file_each_row[3]
                     vtp_mode = vlans_file_each_row[4]
                     if shutdown == "yes":
-                        command = [f"vtp mode {vtp_mode}", f"vlan {id}", f"name {name}", "shutdown"]
+                        command = [f"vtp mode {vtp_mode}",
+                                   f"vlan {id}",
+                                   f"name {name}",
+                                   f"shutdown"]
                     else:
-                        command = [f"vtp mode {vtp_mode}", f"vlan {id}", f"name {name}"]
+                        command = [f"vtp mode {vtp_mode}",
+                                   f"vlan {id}",
+                                   f"name {name}"]
                     #check if we are in the correct line, then send the commands.
                     if line_specifier == line:
                         # Sending our command to the device

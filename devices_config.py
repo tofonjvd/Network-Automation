@@ -5,6 +5,7 @@ import os
 import vlan_config
 import  interface_vlan_config
 import interface_trunk_config
+import interface_ip_address_config
 from setuptools._distutils.command.config import config
 
 
@@ -49,6 +50,8 @@ class Cisco_IOS_Switch():
             print("\nINTERFACE VLAN CONFIGURATIONS")
         elif cfg == "int_trunk_config":
             print("\nINTERFACE TRUNK CONFIGURATION")
+        elif cfg == "int_ip_config":
+            print("\nINTERFACE IP ADDRESS CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -126,19 +129,30 @@ class Cisco_IOS_Switch():
             print("Configuring " + device["host"])
 
             if cfg == "vlan":
-                obj = vlan_config.Vlan_For_Cisco_IOS.config_vlan(vlan_attributes_file=config_file_path,
-                                                                 ssh_to_device=dev_connect, line=line)
+                obj = vlan_config.Vlan_For_Cisco_IOS.config_vlan(
+                    vlan_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line)
             elif cfg == "int_vlan_config":
-                obj = interface_vlan_config.Cisco_Interface_Vlan_Config.interface_vlan_config(interface_vlan_attributes_file=config_file_path,
-                                                                                              ssh_to_device=dev_connect, line=line)
+                obj = interface_vlan_config.Cisco_Interface_Vlan_Config.interface_vlan_config(
+                    interface_vlan_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line)
             elif cfg == "int_trunk_config":
                 #When we want to configure trunk port, the interface state will change and again, bring problems
                 #for the interface. So in these cases, I decide to ping the interface until it goes to up/up state.
                 #For the sake of pinging, we need the IP address of our device, so I pass it to the $obj
                 # so we can use it in $interface_trunk_config.py file.
-                obj = interface_trunk_config.Cisco_Interface_Trunk_Config.trunk_config(trunk_attributes_file=config_file_path,
-                                                                                       ssh_to_device=dev_connect,
-                                                                                       device_ip=device["host"], line=line)
+                obj = interface_trunk_config.Cisco_Interface_Trunk_Config.trunk_config(
+                    trunk_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    device_ip=device["host"],
+                    line=line)
+            elif cfg == "int_ip_config":
+                obj = interface_ip_address_config.Cisco_Interface_Ip_Address_Config.interface_ip_address_config(
+                    interfaces_ip_address_config_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line)
             dev_connect.disconnect()
             print(device["host"] + " has been configured !\n")
 

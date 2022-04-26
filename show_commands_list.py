@@ -4,32 +4,54 @@ import json
 
 class Show_Commands():
     def commands_list(all_devices=None):
+        #Some of show commands need an additional interface-ID/vlan-ID/mac-address. so we are getting that
+        #information here
+        additional_variable = str()
 
         #List of all of our show commands
-        list_of_commands = ["show mac address-table",
-                            "show mac address-table dynamic",
-                            "show mac address-table dynamic vlan ",
-                            "show mac address-table dynamic address ",
-                            "show mac address-table dynamic interface ",
-                            "show mac address-table count",
-                            "show mac address-table aging-time",
-                            "show interfaces status"]
+        list_of_commands = [f"show mac address-table",
+                            f"show mac address-table static {additional_variable}",
+                            f"show mac address-table dynamic",
+                            f"show mac address-table dynamic vlan {additional_variable}",
+                            f"show mac address-table dynamic address {additional_variable}",
+                            f"show mac address-table dynamic interface {additional_variable}",
+                            f"show mac address-table count",
+                            f"show mac address-table aging-time",
+                            f"show interfaces vlan {additional_variable}",
+                            f"show interfaces status",
+                            f"show interfaces description",
+                            f"show interfaces {additional_variable} status",
+                            f"show interfaces switchport",
+                            f"show interfaces {additional_variable} switchport",
+                            f"show ip ssh",
+                            f"show ip default-gateway",
+                            f"show ip interface brief",
+                            f"show running-config",
+                            f"show dhcp lease",
+                            f"show crypto key mypubkey rsa",
+                            f"show ssh",
+                            f"show protocols",]
+
         #Printing all of show commands in console so user can pick one of them.
         for index,each_command in enumerate(list_of_commands):
             print(f"{each_command}[{index}]")
 
         command_to_issue_index = int(input("Choose one:"))
 
-        #Some of show commands need an additional interface-ID/vlan-ID/mac-address. so we are getting that
-        #information here
-        additional_variable = str()
 
-        if command_to_issue_index == 2:
-            additional_variable = input("Write the vlan ID[Example->10]:")
+        #Reorganize here...
+        if command_to_issue_index == 1:
+            additional_variable = input("Write the interface-id[Example->gigabitethernet 0/0]:")
         if command_to_issue_index == 3:
             additional_variable = input("Write the mac-address[Example->0000.1111.2222]:")
         if command_to_issue_index == 4:
             additional_variable = input("Write the interface-id[Example->gigabitethernet 0/0]:")
+        if command_to_issue_index == 13:
+            additional_variable = input("Write the vlan ID[Example->10]:")
+        if command_to_issue_index == 15:
+            additional_variable = input("Write the interface-id[Example->gigabitethernet 0/0]:")
+
+
 
         #The device's ip address that we want to issue the show command on.
         device_ip_address = input("Write the ip address of your device:")
@@ -74,16 +96,9 @@ class Show_Commands():
                             break
                 # (1)<-
 
-                # dev_connect.enable()
                 try:
-                    if (command_to_issue_index == 2 or command_to_issue_index == 3 or command_to_issue_index == 4):
-                        output = dev_connect.send_command(list_of_commands[command_to_issue_index] + additional_variable, use_textfsm=True)
-                    else:
-                        print(list_of_commands[command_to_issue_index])
-                        output = dev_connect.send_command(list_of_commands[command_to_issue_index],use_textfsm=True)
+                    output = dev_connect.send_command(list_of_commands[command_to_issue_index],use_textfsm=True)
                 except:
                     print("Something is wrong\nThe possible problems can be:\n1-wrong vlan ID\n2-wrong mac address\n3-wrong interface")
 
                 print(json.dumps(output, indent=2))
-
-# Show_Commands.commands_list()

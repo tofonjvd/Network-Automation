@@ -3,6 +3,7 @@ import os
 import netmiko.exceptions
 
 class Cisco_Interface_Trunk_Config():
+
     def trunk_config(trunk_attributes_file=None, ssh_to_device=None, device_ip=None, line=None):
         #The $trunk_attributes_file indicates each line of the $config_file_path. because we must configure each line only on the
         # $DEVICES that are in that specific line starting.
@@ -19,11 +20,17 @@ class Cisco_Interface_Trunk_Config():
                     line_specifier += 1
                     encapsulation_mode = trunks_file_each_row[1]
                     interface_list = trunks_file_each_row[2].split("-")
+                    native_vlan = trunks_file_each_row[3]
+                    allowed_vlans = trunks_file_each_row[4].replace("-",",")
                     if line_specifier == line:
                         for each_interface in interface_list:
                             # print(each_interface)
-                            command = [f"interface {each_interface}", f"switchport trunk encapsulation {encapsulation_mode}", "switchport mode trunk"]
-                            ssh_to_device.send_config_set(command, read_timeout=30)
+                            command = [f"interface {each_interface}",
+                                       f"switchport trunk encapsulation {encapsulation_mode}",
+                                       f"switchport mode trunk",
+                                       f"switchport trunk native vlan {native_vlan}",
+                                       f"switchport trunk allowed vlan {allowed_vlans}"]
+                            ssh_to_device.send_config_set(command, read_timeout=60)
 
                 # When we want to configure trunk port, the interface state will change and again, bring problems
                 # for the interface. So in these cases, I decide to ping the interface until it goes to up/up state
