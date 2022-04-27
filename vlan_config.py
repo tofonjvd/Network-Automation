@@ -34,6 +34,3 @@ class Vlan_For_Cisco_IOS():
                         ssh_to_device.send_config_set(command)
                 except StopIteration as error:
                     break
-
-# vlan_file = "D:\\python\\courses\\udemy\\projects\\pycharm\\network_automation\\vlan_automation_file.csv"
-# Vlan_For_Cisco_IOS.config_vlan(vlan_attributes_file=vlan_file)

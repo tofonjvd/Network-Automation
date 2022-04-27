@@ -6,6 +6,7 @@ import vlan_config
 import  interface_vlan_config
 import interface_trunk_config
 import interface_ip_address_config
+import static_route_config
 from setuptools._distutils.command.config import config
 
 
@@ -52,6 +53,8 @@ class Cisco_IOS_Switch():
             print("\nINTERFACE TRUNK CONFIGURATION")
         elif cfg == "int_ip_config":
             print("\nINTERFACE IP ADDRESS CONFIGURATION")
+        elif cfg == "static_route":
+            print("\nSTATIC ROUTE CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -66,8 +69,6 @@ class Cisco_IOS_Switch():
                     hosts_to_config = devices_to_config_file_each_row[0].split("-")
                     config_file_line_specifier += 1
 
-
-                    #maybe the problem is for the while ..........
                     for each_host_to_config in hosts_to_config:
                         for each_device in all_devices:
                             if each_device["host"] == each_host_to_config:
@@ -153,10 +154,12 @@ class Cisco_IOS_Switch():
                     interfaces_ip_address_config_file=config_file_path,
                     ssh_to_device=dev_connect,
                     line=line)
+            elif cfg == "static_route":
+                obj = static_route_config.Cisco_Static_Route_Config.static_route_config(
+                    static_route_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    device_ip=device["host"],
+                    line=line
+                )
             dev_connect.disconnect()
             print(device["host"] + " has been configured !\n")
-
-# devices_file = "D:\\python\\courses\\udemy\\projects\\pycharm\\network_automation\\devices_list.csv"
-# vlan_file = "D:\\python\\courses\\udemy\\projects\\pycharm\\network_automation\\vlan_automation_file.csv"
-# trunk_file = "D:\\python\\courses\\udemy\\projects\\pycharm\\network_automation\\trunk_automation_file.csv"
-# print(Cisco_IOS_Switch.devices_to_config(self=Cisco_IOS_Switch,all_devices=Cisco_IOS_Switch.make_devices(devices_file_path=devices_file),config_file_path=trunk_file,cfg="int_trunk_config"))

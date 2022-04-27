@@ -43,9 +43,12 @@ class Cisco_Interface_Ip_Address_Config():
                     speed = interface_ip_file_each_row[7]
 
                     if line_specifier == line:
-                        Cisco_Interface_Ip_Address_Config.device_interface_switchport(
-                            ssh_to_device=ssh_to_device,
-                            interface=interface)
+                        try:
+                            Cisco_Interface_Ip_Address_Config.device_interface_switchport(
+                                ssh_to_device=ssh_to_device,
+                                interface=interface)
+                        except:
+                            print("Seems the device is a router")
                         if interface.split(" ")[0] == "vlan":
                             if dhcp == "yes":
                                 command = [f"interface {interface}",
