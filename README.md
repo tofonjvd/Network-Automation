@@ -14,7 +14,7 @@ This is the first version of my network automation program. You can add the valu
 - configure ip address on interfaces
 - configure static route on devices
 - export data from devices using different "show" commands
-- 
+- and more !
   
 I defined the .csv files based on my another project that I implemented in GNS3, you can find the project [here](https://github.com/tofonjvd/GNS3_vlan_interface_ssh_mac_copy__practice)
 
