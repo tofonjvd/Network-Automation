@@ -41,6 +41,16 @@ class Cisco_Interface_Ip_Address_Config():
                     dhcp = interface_ip_file_each_row[5]
                     duplex = interface_ip_file_each_row[6]
                     speed = interface_ip_file_each_row[7]
+                    encapsulation = str()
+                    native = str()
+                    parent_interface = str()
+                    if "." in interface:
+                        encapsulation = interface_ip_file_each_row[8]
+                        native = interface_ip_file_each_row[9]
+                        parent_interface = interface.split(".")[0]
+                    else:
+                        encapsulation = ""
+                        native = ""
 
                     if line_specifier == line:
                         try:
@@ -58,18 +68,32 @@ class Cisco_Interface_Ip_Address_Config():
                                            f"ip address {ip} {subnet}"]
                             ssh_to_device.send_config_set(command)
                         else:
-                            if dhcp == "yes":
-                                command = [f"interface {interface}",
-                                           f"ip address dhcp",
-                                           f"no negotiation auto",
-                                           f"duplex {duplex}",
-                                           f"speed {speed}"]
+                            if "." in interface:
+                                if native == "no":
+                                    command = [f"interface {parent_interface}",
+                                               f"no shutdown",
+                                               f"interface {interface}",
+                                               f"encapsulation dot1q {encapsulation}",
+                                               f"ip address {ip} {subnet}"]
+                                else:
+                                    command = [f"interface {parent_interface}",
+                                               f"no shutdown",
+                                               f"interface {interface}",
+                                               f"encapsulation dot1q {encapsulation} native",
+                                               f"ip address {ip} {subnet}"]
                             else:
-                                command = [f"interface {interface}",
-                                           f"ip address {ip} {subnet}",
-                                           f"no negotiation auto",
-                                           f"duplex {duplex}",
-                                           f"speed {speed}"]
+                                if dhcp == "yes":
+                                    command = [f"interface {interface}",
+                                               f"ip address dhcp",
+                                               f"no negotiation auto",
+                                               f"duplex {duplex}",
+                                               f"speed {speed}"]
+                                else:
+                                    command = [f"interface {interface}",
+                                               f"ip address {ip} {subnet}",
+                                               f"no negotiation auto",
+                                               f"duplex {duplex}",
+                                               f"speed {speed}"]
                             ssh_to_device.send_config_set(command)
 
                         if shutdown == "no":
