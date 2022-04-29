@@ -7,6 +7,7 @@ import  interface_vlan_config
 import interface_trunk_config
 import interface_ip_address_config
 import static_route_config
+import channel_group_config
 from setuptools._distutils.command.config import config
 
 
@@ -55,6 +56,8 @@ class Cisco_IOS_Switch():
             print("\nINTERFACE IP ADDRESS CONFIGURATION")
         elif cfg == "static_route":
             print("\nSTATIC ROUTE CONFIGURATION")
+        elif cfg == "channel_group":
+            print("\nCHANNEL-GROUP CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -161,5 +164,10 @@ class Cisco_IOS_Switch():
                     device_ip=device["host"],
                     line=line
                 )
+            elif cfg == "channel_group":
+                obj = channel_group_config.Cisco_Channel_Group_Config.channel_group_config(
+                    channel_group_attributes_file=config_file_path,
+                ssh_to_device=dev_connect,
+                line=line)
             dev_connect.disconnect()
             print(device["host"] + " has been configured !\n")
