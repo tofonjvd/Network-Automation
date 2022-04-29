@@ -17,6 +17,7 @@ This is the first version of my network automation program. You can add the valu
 - configure an interface to get ip address from dhcp.
 - configure speed and duplex.
 - configure static route on devices with different "distance metric".
+- configure channel-group supporting different modes.
 - export data from devices using different "show" commands in JSON.
 - and more !
   
