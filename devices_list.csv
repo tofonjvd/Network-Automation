@@ -1,6 +1,7 @@
 device_type,host,username,password,enable_pass
-cisco_ios,192.168.65.21,r1,admin,admin
-cisco_ios,192.168.65.22,r2,admin,admin
-cisco_ios,192.168.65.23,r3,admin,admin
-cisco_ios,192.168.65.24,r4,admin,admin
-cisco_ios,192.168.65.11,s1,admin,admin
+cisco_ios,192.168.65.11,r1,admin,admin
+cisco_ios,192.168.65.12,r2,admin,admin
+cisco_ios,192.168.65.13,r3,admin,admin
+cisco_ios,192.168.65.14,r4,admin,admin
+cisco_ios,192.168.65.15,r5,admin,admin
+cisco_ios,192.168.65.16,r6,admin,admin

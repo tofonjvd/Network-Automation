@@ -28,13 +28,26 @@ class Show_Commands():
                             f"show ip interface brief",
                             f"show ip route",
                             f"show ip route {additional_variable}",
+                            f"show ip ospf interface brief",
+                            f"show ip ospf interface {additional_variable}",
+                            f"show ip protocols",
+                            f"show ip ospf neighbor {additional_variable}",
+                            f"show ip ospf database",
+                            f"show ip ospf",
+                            f"show ip route ospf",
+                            f"show ip route {additional_variable}",
                             f"show ip arp",
                             f"show arp",
                             f"show running-config",
                             f"show dhcp lease",
                             f"show crypto key mypubkey rsa",
                             f"show ssh",
-                            f"show protocols",]
+                            f"show protocols",
+                            f"show etherchannel",
+                            f"show etherchannel port",
+                            f"show etherchannel port-channel",
+                            f"show etherchannel protocol",
+                            f"show etherchannel summary",]
 
         #Printing all of show commands in console so user can pick one of them.
         for index,each_command in enumerate(list_of_commands):
