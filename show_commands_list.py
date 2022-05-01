@@ -82,7 +82,8 @@ class Show_Commands():
 
         position_of_additional_variable = list_of_commands[command_to_issue_index][starting_position:ending_position]
 
-        additional_variable = input(f"Write the {position_of_additional_variable}:")
+        if "[" in list_of_commands[command_to_issue_index]:
+            additional_variable = input(f"Write the {position_of_additional_variable}:")
 
 
         #The device's ip address that we want to issue the show command on.

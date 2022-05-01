@@ -41,7 +41,7 @@ class Cisco_IOS_Switch():
 
     #if you consider the configuration files, you will notice that we have a header in them called $DEVICES.
     #This header is representing which devices should be configured for that specific configuration file.
-    def devices_to_config(self,all_devices=None,config_file_path=None,cfg=None):
+    def devices_to_config(self,all_devices=None,config_file_path=None,optional_config_file_path=None,cfg=None):
         devices_to_config_list = list()
         #The $config_file_line_specifier indicates each line of the $config_file_path. because we must configure each line only on the
         # $DEVICES that are in that specific line starting.
@@ -80,7 +80,10 @@ class Cisco_IOS_Switch():
                             if each_device["host"] == each_host_to_config:
                                 devices_to_config_list.append(each_device)
                     self.config_devices(list_of_devices=devices_to_config_list,
-                                        config_file_path=config_file_path, cfg=cfg, line=config_file_line_specifier)
+                                        config_file_path=config_file_path,
+                                        optional_config_file_path=optional_config_file_path,
+                                        cfg=cfg,
+                                        line=config_file_line_specifier)
                     # different lines may have different devices, the top code will not support this
 
                 except StopIteration as error:
@@ -89,7 +92,7 @@ class Cisco_IOS_Switch():
 
     # The $cfg is a dummy way for figuring out the type of configuration so we can make some
     # catchy outputs for the user !
-    def config_devices(list_of_devices=None,config_file_path=None,cfg=None, line=None):
+    def config_devices(list_of_devices=None,config_file_path=None,optional_config_file_path=None,cfg=None, line=None):
 
         #Start to configure each device
         for each_device_index in range(len(list_of_devices)):
@@ -175,6 +178,7 @@ class Cisco_IOS_Switch():
             elif cfg == "ospf":
                 obj = ospf_config.Cisco_Ospf_Config.ospf_config(
                     ospf_config_file=config_file_path,
+                    interface_ospf_config_file=optional_config_file_path,
                     ssh_to_device=dev_connect,
                     line=line
                 )

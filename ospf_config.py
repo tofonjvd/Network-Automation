@@ -1,10 +1,11 @@
 import csv
-import show_commands_list
 import json
+import show_commands_list
+import interface_ospf_config
 
 class Cisco_Ospf_Config():
 
-    def ospf_config(ospf_config_file=None, ssh_to_device=None, line=None):
+    def ospf_config(ospf_config_file=None, interface_ospf_config_file=None, ssh_to_device=None, line=None):
         line_specifier = 0
         with open(ospf_config_file, mode="r") as ospf_file:
             ospf_data = csv.reader(ospf_file)
@@ -21,9 +22,8 @@ class Cisco_Ospf_Config():
                     wildcard_mask = ospf_file_each_row[3]
                     area_id = ospf_file_each_row[4]
                     router_id = ospf_file_each_row[5]
-                    passive_interfaces = ospf_file_each_row[6].split("-")
-                    default_information_originate = ospf_file_each_row[7]
-                    auto_cost_reference_bandwidth = ospf_file_each_row[8]
+                    default_information_originate = ospf_file_each_row[6]
+                    auto_cost_reference_bandwidth = ospf_file_each_row[7]
 
                     if line_specifier == line:
                         command = [f"router ospf {process_id}",
@@ -32,7 +32,12 @@ class Cisco_Ospf_Config():
                                    f"auto-cost reference-bandwidth {auto_cost_reference_bandwidth}",
                                    f"default-information originate"]
                         ssh_to_device.send_config_set(command)
-                        for each_interface in passive_interfaces:
-                            ssh_to_device.send_command(f"passive-interface {each_interface}")
+
+                    if interface_ospf_config_file:
+                        interface_ospf_config.Cisco_Ospf_Config.interface_ospf_config(
+                            interface_ospf_config_file=interface_ospf_config_file,
+                            ssh_to_device=ssh_to_device,
+                            line=line
+                        )
                 except StopIteration as error:
                     break
