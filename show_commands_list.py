@@ -3,6 +3,11 @@ from netmiko import ConnectHandler
 import json
 
 class Show_Commands():
+
+    def shape_the_command(command=None, char=None):
+        position = command.find(char)
+        return position
+
     def commands_list(all_devices=None):
         #Some of show commands need an additional interface-ID/vlan-ID/mac-address. so we are getting that
         #information here
@@ -10,44 +15,61 @@ class Show_Commands():
 
         #List of all of our show commands
         list_of_commands = [f"show mac address-table",
-                            f"show mac address-table static {additional_variable}",
+                            f"show mac address-table static",
+                            f"show mac address-table static address [mac-address]",
+                            f"show mac address-table static interface [interafce]",
+                            f"show mac address-table static vlan [vlan-id]",
                             f"show mac address-table dynamic",
-                            f"show mac address-table dynamic vlan {additional_variable}",
-                            f"show mac address-table dynamic address {additional_variable}",
-                            f"show mac address-table dynamic interface {additional_variable}",
+                            f"show mac address-table dynamic address [mac-address]",
+                            f"show mac address-table dynamic interface [interafce]",
+                            f"show mac address-table dynamic vlan [vlan-id]",
                             f"show mac address-table count",
+                            f"show mac address-table count vlan [vlan-id]",
                             f"show mac address-table aging-time",
-                            f"show interfaces vlan {additional_variable}",
+                            f"show mac address-table aging-time [vlan-id]",
+                            f"show interfaces vlan [vlan-id]",
                             f"show interfaces status",
+                            f"show interfaces [interafce] status",
                             f"show interfaces description",
-                            f"show interfaces {additional_variable} status",
                             f"show interfaces switchport",
-                            f"show interfaces {additional_variable} switchport",
+                            f"show interfaces [interafce] switchport",
                             f"show ip ssh",
-                            f"show ip default-gateway",
                             f"show ip interface brief",
+                            f"show ip interface [interafce]",
                             f"show ip route",
-                            f"show ip route {additional_variable}",
-                            f"show ip ospf interface brief",
-                            f"show ip ospf interface {additional_variable}",
-                            f"show ip protocols",
-                            f"show ip ospf neighbor {additional_variable}",
-                            f"show ip ospf database",
+                            f"show ip route [static/bgp/eigrp/ospf/ospfv3/rip/summary]",
                             f"show ip ospf",
-                            f"show ip route ospf",
-                            f"show ip route {additional_variable}",
+                            f"show ip ospf interface brief",
+                            f"show ip ospf [process-id]",
+                            f"show ip ospf interface [interafce]",
+                            f"show ip ospf neighbor",
+                            f"show ip ospf neighbor  [interafce/neighbor-id]",
+                            f"show ip ospf database",
+                            f"show ip ospf database summary",
+                            f"show ip protocols",
+                            f"show ip protocols summary",
                             f"show ip arp",
+                            f"show ip arp [interafce]",
                             f"show arp",
+                            f"show arp summary",
                             f"show running-config",
                             f"show dhcp lease",
                             f"show crypto key mypubkey rsa",
                             f"show ssh",
+                            f"show ssh [ssh connection number]",
                             f"show protocols",
+                            f"show protocols [interafce/vlan-id]",
                             f"show etherchannel",
                             f"show etherchannel port",
                             f"show etherchannel port-channel",
                             f"show etherchannel protocol",
-                            f"show etherchannel summary",]
+                            f"show etherchannel summary",
+                            f"show etherchannel detail",
+                            f"show etherchannel auto",
+                            f"show etherchannel detail",
+                            f"show etherchannel [channel-group-number]",
+                            ]
+
 
         #Printing all of show commands in console so user can pick one of them.
         for index,each_command in enumerate(list_of_commands):
@@ -55,19 +77,12 @@ class Show_Commands():
 
         command_to_issue_index = int(input("Choose one:"))
 
+        starting_position = Show_Commands.shape_the_command(command=list_of_commands[command_to_issue_index], char="[")
+        ending_position = Show_Commands.shape_the_command(command=list_of_commands[command_to_issue_index], char="]") + 1
 
-        #Reorganize here...
-        if command_to_issue_index == 1:
-            additional_variable = input("Write the interface-id[Example->gigabitethernet 0/0]:")
-        if command_to_issue_index == 3:
-            additional_variable = input("Write the mac-address[Example->0000.1111.2222]:")
-        if command_to_issue_index == 4:
-            additional_variable = input("Write the interface-id[Example->gigabitethernet 0/0]:")
-        if command_to_issue_index == 13:
-            additional_variable = input("Write the vlan ID[Example->10]:")
-        if command_to_issue_index == 15:
-            additional_variable = input("Write the interface-id[Example->gigabitethernet 0/0]:")
+        position_of_additional_variable = list_of_commands[command_to_issue_index][starting_position:ending_position]
 
+        additional_variable = input(f"Write the {position_of_additional_variable}:")
 
 
         #The device's ip address that we want to issue the show command on.
@@ -114,7 +129,9 @@ class Show_Commands():
                 # (1)<-
 
                 try:
-                    output = dev_connect.send_command(list_of_commands[command_to_issue_index],use_textfsm=True)
+                    placing_additional_variable_in_command = list_of_commands[command_to_issue_index].replace(position_of_additional_variable,
+                                                                                                              additional_variable)
+                    output = dev_connect.send_command(placing_additional_variable_in_command,use_textfsm=True)
                 except:
                     print("Something is wrong\nThe possible problems can be:\n1-wrong vlan ID\n2-wrong mac address\n3-wrong interface")
 
