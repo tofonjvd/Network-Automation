@@ -13,7 +13,7 @@ This is the first version of my network automation program. You can add the valu
 - assign a voice vlan to an interface.
 - change the interface switchport to access.
 - change the interface switchport to trunk, configure the "allowed" and "native" vlans and the encapsulation method.
-- configure static ip address on interfaces.
+- configure static ipv4/ipv6 address on interfaces.
 - configure an interface to get ip address from dhcp.
 - configure speed and duplex.
 - configure static route on devices with different "distance metric".
