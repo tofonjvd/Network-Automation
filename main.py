@@ -44,19 +44,21 @@ obj_make_list_of_devices = devices_config.Cisco_IOS_Switch.make_devices(devices_
 #                              config_file_path=trunk_file,
 #                              cfg="int_trunk_config")
 #
-# obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
-#                              all_devices=obj_make_list_of_devices,
-#                              config_file_path=static_route_config_file,
-#                              cfg="static_route")
+obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
+                             all_devices=obj_make_list_of_devices,
+                             config_file_path=interface_ipv6_address_file,
+                             cfg="int_ipv6_config")
+
+obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
+                             all_devices=obj_make_list_of_devices,
+                             config_file_path=static_route_config_file,
+                             cfg="static_route")
 #
 # obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
 #                              all_devices=obj_make_list_of_devices,
 #                              config_file_path=ospf_config_file,
 #                              cfg="ospf")
-obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
-                             all_devices=obj_make_list_of_devices,
-                             config_file_path=interface_ipv6_address_file,
-                             cfg="int_ipv6_config")
+
 obj_show_data = show_commands_list.Show_Commands.commands_list(all_devices=obj_make_list_of_devices)
 
 end = time.time()

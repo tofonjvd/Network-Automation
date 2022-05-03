@@ -37,14 +37,13 @@ class Cisco_Interface_Ip_Address_Config():
                     normal_ipv6_config_flag = True
                     interface = interface_ipv6_file_each_row[1]
                     ipv6 = interface_ipv6_file_each_row[2]
-                    unicast_routing = interface_ipv6_file_each_row[3]
-                    eui_64 = interface_ipv6_file_each_row[4]
-                    anycast = interface_ipv6_file_each_row[5]
-                    enable = interface_ipv6_file_each_row[6]
-                    dhcp = interface_ipv6_file_each_row[7]
-                    autoconfig = interface_ipv6_file_each_row[8]
-                    link_local = interface_ipv6_file_each_row[9]
-                    shutdown = interface_ipv6_file_each_row[10]
+                    eui_64 = interface_ipv6_file_each_row[3]
+                    anycast = interface_ipv6_file_each_row[4]
+                    enable = interface_ipv6_file_each_row[5]
+                    dhcp = interface_ipv6_file_each_row[6]
+                    autoconfig = interface_ipv6_file_each_row[7]
+                    link_local = interface_ipv6_file_each_row[8]
+                    shutdown = interface_ipv6_file_each_row[9]
 
                     if line_specifier == line:
                         try:
@@ -53,8 +52,6 @@ class Cisco_Interface_Ip_Address_Config():
                                 interface=interface)
                         except:
                             print("Seems the device is a router")
-
-                        if unicast_routing == "yes": ssh_to_device.send_command(f"ipv6 unicast-routing")
 
                         if autoconfig == "yes":
                             commands = [f"interface {interface}",

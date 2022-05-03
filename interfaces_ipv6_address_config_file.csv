@@ -1,3 +1,5 @@
 DEVICE,INTERFACE,IPV6_ADDRESS,UNICAST_ROUTING,EUI_64,ANYCAST,ENABLE,DHCP,AUTOCONFIG,LINK_LOCAL,SHUTDOWN
-192.168.65.11,gi0/0,2001:DB8:1111:4::1/64,yes,no,no,no,no,no,no,no
-192.168.65.12,gi0/0,2001:DB8:1111:4::2/64,yes,no,no,no,no,no,no,no
+192.168.65.11,gi0/0,2001:DB8:1111:5::1/64,yes,no,no,no,no,no,no,no
+192.168.65.11,gi0/2,2001:DB8:1111:1::1/64,yes,no,no,no,no,no,no,no
+192.168.65.12,gi0/0,2001:DB8:1111:5::2/64,yes,no,no,no,no,no,no,no
+192.168.65.12,gi0/2,2001:DB8:1111:3::2/64,yes,no,no,no,no,no,no,no
