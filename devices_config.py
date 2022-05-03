@@ -9,6 +9,7 @@ import interface_ip_address_config
 import static_route_config
 import channel_group_config
 import ospf_config
+import interface_ipv6_address_config
 from setuptools._distutils.command.config import config
 
 
@@ -61,6 +62,8 @@ class Cisco_IOS_Switch():
             print("\nCHANNEL-GROUP CONFIGURATION")
         elif cfg == "ospf":
             print("\nOSPF CONFIGURATION")
+        elif cfg == "int_ipv6_config":
+            print("\nINTERFACE IPV6 ADDRESS CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -179,6 +182,12 @@ class Cisco_IOS_Switch():
                 obj = ospf_config.Cisco_Ospf_Config.ospf_config(
                     ospf_config_file=config_file_path,
                     interface_ospf_config_file=optional_config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line
+                )
+            elif cfg == "int_ipv6_config":
+                obj = interface_ipv6_address_config.Cisco_Interface_Ip_Address_Config.interface_ipv6_address_config(
+                    interfaces_ipv6_address_config_file=config_file_path,
                     ssh_to_device=dev_connect,
                     line=line
                 )

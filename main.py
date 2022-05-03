@@ -11,6 +11,8 @@ channel_group_config_file = "path to channel_goup_config_file.csv"
 ospf_config_file = "path to ospf_config.csv"
 interface_ospf_config_file = "path to interface_ospf_config.csv"
 interface_ip_address_file = "path to interfaces_ip_address_config_file.csv"
+interface_ipv6_address_file = "path to interfaces_ipv6_address_config_file.csv"
+
 
 start = time.time()
 
@@ -51,7 +53,10 @@ obj_make_list_of_devices = devices_config.Cisco_IOS_Switch.make_devices(devices_
 #                              all_devices=obj_make_list_of_devices,
 #                              config_file_path=ospf_config_file,
 #                              cfg="ospf")
-
+obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
+                             all_devices=obj_make_list_of_devices,
+                             config_file_path=interface_ipv6_address_file,
+                             cfg="int_ipv6_config")
 obj_show_data = show_commands_list.Show_Commands.commands_list(all_devices=obj_make_list_of_devices)
 
 end = time.time()
