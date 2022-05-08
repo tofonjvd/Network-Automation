@@ -1,4 +1,4 @@
-import netmiko.exceptions
+import textfsm
 from netmiko import ConnectHandler
 import json
 
@@ -27,6 +27,10 @@ class Show_Commands():
                             f"show mac address-table count vlan [vlan-id]",
                             f"show mac address-table aging-time",
                             f"show mac address-table aging-time [vlan-id]",
+                            f"show mac address-table secure",
+                            f"show mac address-table secure address [H.H.H]",
+                            f"show mac address-table secure interface [interface]",
+                            f"show mac address-table secure vlan [vlan-id]",
                             f"show interfaces vlan [vlan-id]",
                             f"show interfaces status",
                             f"show interfaces [interafce] status",
@@ -52,7 +56,9 @@ class Show_Commands():
                             f"show ip arp [interafce]",
                             f"show ipv6 interface [interface]",
                             f"show ipv6 interface brief",
-                            f"show ipv6 route [connected/local]",
+                            f"show ipv6 route [connected/local/static]",
+                            f"show ipv6 route [address]",
+                            f"show ipv6 neighbors",
                             f"show arp",
                             f"show arp summary",
                             f"show running-config",
@@ -71,6 +77,13 @@ class Show_Commands():
                             f"show etherchannel auto",
                             f"show etherchannel detail",
                             f"show etherchannel [channel-group-number]",
+                            f"show access-lists",
+                            f"show access-lists [access-list-number/access-list-name]",
+                            f"show ip access-lists",
+                            f"show ip access-lists [access-list-number/access-list-name]",
+                            f"show port-security",
+                            f"show port-security address",
+                            f"show port-security address forbiden",
                             ]
 
 
@@ -133,9 +146,8 @@ class Show_Commands():
                 # (1)<-
 
                 try:
-                    placing_additional_variable_in_command = list_of_commands[command_to_issue_index].replace(position_of_additional_variable,
-                                                                                                              additional_variable)
-                    output = dev_connect.send_command(placing_additional_variable_in_command,use_textfsm=True)
+                    placing_additional_variable_in_command = list_of_commands[command_to_issue_index].replace(position_of_additional_variable, additional_variable)
+                    output = dev_connect.send_command(placing_additional_variable_in_command, use_textfsm=True)
                 except:
                     print("Something is wrong\nThe possible problems can be:\n1-wrong vlan ID\n2-wrong mac address\n3-wrong interface")
 

@@ -1,6 +1,5 @@
 import csv
 import os
-import netmiko.exceptions
 
 class Cisco_Static_Route_Config():
 

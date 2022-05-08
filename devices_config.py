@@ -1,6 +1,6 @@
 import csv
-import netmiko.exceptions
 from netmiko import ConnectHandler
+from netmiko import exceptions
 import os
 import vlan_config
 import  interface_vlan_config
@@ -10,6 +10,9 @@ import static_route_config
 import channel_group_config
 import ospf_config
 import interface_ipv6_address_config
+import access_list_config
+import username_config
+import port_security_config
 from setuptools._distutils.command.config import config
 
 
@@ -64,6 +67,12 @@ class Cisco_IOS_Switch():
             print("\nOSPF CONFIGURATION")
         elif cfg == "int_ipv6_config":
             print("\nINTERFACE IPV6 ADDRESS CONFIGURATION")
+        elif cfg == "acl":
+            print("ACCESS CONTROL LIST CONFIGURATION")
+        elif cfg == "username":
+            print("USERNAME CONFIGURATION")
+        elif cfg == "psecure":
+            print("PORT SECURITY CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -118,7 +127,7 @@ class Cisco_IOS_Switch():
                         #, it will go to the except section.
                         dev_connect = ConnectHandler(**device)
                         flag == True
-                    except netmiko.exceptions.NetmikoTimeoutException as error_NetmikoTimeoutException:
+                    except exceptions.NetmikoTimeoutException as error_NetmikoTimeoutException:
                         print("SSH distrupted. Trying to ping the device ...")
                         try:
                             dev_connect.disconnect()
@@ -191,5 +200,30 @@ class Cisco_IOS_Switch():
                     ssh_to_device=dev_connect,
                     line=line
                 )
+            elif cfg == "acl":
+                obj = access_list_config.Cisco_Access_List_Config.access_list_config(
+                    access_list_config_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line,
+                    device_type=device["device_type"],
+                    device_ip=device["host"],
+                    device_username=device["username"],
+                    device_password=device["password"],
+                    device_secret=device["secret"]
+                )
+            elif cfg == "username":
+                obj = username_config.Cisco_username_Config.username_config(
+                    username_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    device_ip=device["host"],
+                    line=line
+                )
+            elif cfg == "psecure":
+                obj = port_security_config.Cisco_Port_Security_Config.port_security_config(
+                    port_security_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line
+                )
+
             dev_connect.disconnect()
             print(device["host"] + " has been configured !\n")

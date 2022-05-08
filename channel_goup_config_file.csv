@@ -1,3 +1,2 @@
 DEVICES,INTERFACES,ID,MODE
-192.168.65.11-192.168.65.12,gi0/0-gi0/1-gi0/2-gi0/3,10,desirable
-192.168.65.13-192.168.65.14,gi0/0-gi0/1-gi0/2-gi0/3,10,desirable
+192.168.65.11-192.168.65.14,gi1/0-gi1/1-gi1/2-gi1/3,20,desirable

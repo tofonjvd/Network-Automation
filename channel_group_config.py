@@ -1,4 +1,5 @@
 import csv
+from netmiko import exceptions
 
 class Cisco_Channel_Group_Config():
     def channel_group_config(channel_group_attributes_file=None, ssh_to_device=None, line=None):
@@ -22,6 +23,10 @@ class Cisco_Channel_Group_Config():
                         for each_interface in interfaces_list:
                             command = [f"interface {each_interface}",
                                        f"channel-group {channel_group_id} mode {channel_group_mode}"]
-                            ssh_to_device.send_config_set(command)
+                            try:
+                                ssh_to_device.send_config_set(command)
+                            except exceptions.ReadTimeout :
+                                print("READ TIMEOUT ERRPR")
+                                ssh_to_device.send_config_set(command,read_timeout=120)
                 except StopIteration as error:
                     break
