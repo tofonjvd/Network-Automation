@@ -33,6 +33,7 @@ class Show_Commands():
                             f"show mac address-table secure vlan [vlan-id]",
                             f"show interfaces vlan [vlan-id]",
                             f"show interfaces status",
+                            f"show interfaces [interafce]",
                             f"show interfaces [interafce] status",
                             f"show interfaces description",
                             f"show interfaces switchport",
@@ -54,6 +55,8 @@ class Show_Commands():
                             f"show ip protocols summary",
                             f"show ip arp",
                             f"show ip arp [interafce]",
+                            f"show ip arp inspection",
+                            f"show ip arp inspection statistics",
                             f"show ipv6 interface [interface]",
                             f"show ipv6 interface brief",
                             f"show ipv6 route [connected/local/static]",
@@ -84,6 +87,8 @@ class Show_Commands():
                             f"show port-security",
                             f"show port-security address",
                             f"show port-security address forbiden",
+                            f"show dhcp lease",
+                            f"show ip default-gateway",
                             ]
 
 

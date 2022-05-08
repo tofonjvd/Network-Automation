@@ -41,6 +41,7 @@ class Cisco_Interface_Ip_Address_Config():
                     dhcp = interface_ip_file_each_row[5]
                     duplex = interface_ip_file_each_row[6]
                     speed = interface_ip_file_each_row[7]
+                    dhcp_ip_helper = interface_ip_file_each_row[10]
                     encapsulation = str()
                     native = str()
                     parent_interface = str()
@@ -103,5 +104,10 @@ class Cisco_Interface_Ip_Address_Config():
                             command = [f"interface {interface}",
                                        f"shutdown"]
                         ssh_to_device.send_config_set(command)
+
+                        if dhcp_ip_helper != "no":
+                            command = [f"interface {interface}",
+                                       f"ip helper-address {dhcp_ip_helper}"]
+                            ssh_to_device.send_config_set(command)
                 except StopIteration as error:
                     break

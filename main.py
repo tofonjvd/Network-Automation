@@ -2,6 +2,7 @@ import devices_config
 import time
 import show_commands_list
 
+devices_file = "path to devices_list.csv"
 vlan_file = "path to vlan_automation_file.csv"
 interface_vlan_file = "path to interface_vlan_file.csv"
 trunk_file = "path to trunk_automation_file.csv"
@@ -14,7 +15,7 @@ interface_ospf_config_file = "path to interface_ospf_config.csv"
 access_list_config_file = "path to access_list_config_file.csv"
 username_config_file = "path to username_config_file.csv"
 port_security_config_file = "path to port_security_file.csv"
-devices_file = "path to devices_list.csv"
+dynamic_arp_inspection_config_file = "path to dynamic_arp_inspection_config_file.csv"
 
 start = time.time()
 
@@ -75,6 +76,11 @@ obj_make_list_of_devices = devices_config.Cisco_IOS_Switch.make_devices(devices_
 #                              all_devices=obj_make_list_of_devices,
 #                              config_file_path=port_security_config_file,
 #                              cfg="psecure")
+
+obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
+                             all_devices=obj_make_list_of_devices,
+                             config_file_path=dynamic_arp_inspection_config_file,
+                             cfg="dai")
 
 obj_show_data = show_commands_list.Show_Commands.commands_list(all_devices=obj_make_list_of_devices)
 
