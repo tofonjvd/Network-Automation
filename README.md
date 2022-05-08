@@ -19,6 +19,8 @@ This is the first version of my network automation program. You can add the valu
 - configure static ipv4/ipv6 route.
 - configure channel-group supporting different modes.
 - configure OSPF.
+- configure ACL.
+- configure port-security.
 - export data from devices using different "show" commands in JSON.
 - and more !
   
