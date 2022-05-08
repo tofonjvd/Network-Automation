@@ -21,6 +21,7 @@ This is the first version of my network automation program. You can add the valu
 - configure OSPF.
 - configure ACL.
 - configure port-security.
+- configure Dynamic ARP Inspection ( DAI ).
 - export data from devices using different "show" commands in JSON.
 - and more !
   
