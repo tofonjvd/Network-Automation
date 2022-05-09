@@ -14,6 +14,7 @@ import access_list_config
 import username_config
 import port_security_config
 import dynami_arp_inspection_config
+import dhcp_snooping_config
 from setuptools._distutils.command.config import config
 
 
@@ -76,6 +77,8 @@ class Cisco_IOS_Switch():
             print("PORT SECURITY CONFIGURATION")
         elif cfg == "dai":
             print("DYNAMIC ARP INSPECTION CONFIGURATION")
+        elif cfg == "dhcp_snooping":
+            print("DHCP SNOOPING CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -230,6 +233,12 @@ class Cisco_IOS_Switch():
             elif cfg == "dai":
                 obj = dynami_arp_inspection_config.Cisco_DAI_Config.dynamic_arp_inspection_config(
                     dynamic_arp_inspection_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line
+                )
+            elif cfg == "dhcp_snooping":
+                obj = dhcp_snooping_config.Cisco_DHCP_Snooping_Config.dhcp_snooping_config(
+                    dhcp_snooping_attributes_file=config_file_path,
                     ssh_to_device=dev_connect,
                     line=line
                 )
