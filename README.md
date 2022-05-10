@@ -24,6 +24,10 @@ This is the first version of my network automation program. You can add the valu
 - configure Dynamic ARP Inspection ( DAI ).
 - configure DHCP Snooping.
 - configure Logging.
+- configure local time.
+- configure NTP.
+- configure CDP.
+- configure LLDP.
 - export data from devices using different "show" commands in JSON.
 - and more !
   
