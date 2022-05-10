@@ -23,6 +23,7 @@ This is the first version of my network automation program. You can add the valu
 - configure port-security.
 - configure Dynamic ARP Inspection ( DAI ).
 - configure DHCP Snooping.
+- configure Logging.
 - export data from devices using different "show" commands in JSON.
 - and more !
   
