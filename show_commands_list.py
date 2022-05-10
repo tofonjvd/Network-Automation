@@ -92,6 +92,18 @@ class Show_Commands():
                             f"show port-security address forbiden",
                             f"show dhcp lease",
                             f"show ip default-gateway",
+                            f"show logging",
+                            f"show clock",
+                            f"show ntp associations",
+                            f"show ntp status",
+                            f"show cdp",
+                            f"show cdp neighbors",
+                            f"show cdp traffic",
+                            f"show cdp interface [interface]"
+                            f"show lldp",
+                            f"show lldp neighbors",
+                            f"show lldp traffic",
+                            f"show lldp interface [interface]",
                             ]
 
 
