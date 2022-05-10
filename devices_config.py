@@ -16,6 +16,8 @@ import port_security_config
 import dynami_arp_inspection_config
 import dhcp_snooping_config
 import logging_config
+import ntp_and_time_config
+import cdp_and_lldp_config
 from setuptools._distutils.command.config import config
 
 
@@ -82,6 +84,10 @@ class Cisco_IOS_Switch():
             print("DHCP SNOOPING CONFIGURATION")
         elif cfg == "logging":
             print("LOGGING CONFIGURATION")
+        elif cfg == "ntp_and_time":
+            print("NTP/TIME CONFIGURATION")
+        elif cfg == "cdp_and_lldp":
+            print("CDP/LLDP CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -248,6 +254,18 @@ class Cisco_IOS_Switch():
             elif cfg == "logging":
                 obj = logging_config.Cisco_Logging_Config.logging_config(
                     logging_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line
+                )
+            elif cfg == "ntp_and_time":
+                obj = ntp_and_time_config.Cisco_NTP_And_Time_Config.ntp_and_time_config(
+                    ntp_and_time_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line
+                )
+            elif cfg == "cdp_and_lldp":
+                obj = cdp_and_lldp_config.Cisco_CDP_And_LLDP_Config.cdp_and_lldp_config(
+                    cdp_and_lldp_attributes_file=config_file_path,
                     ssh_to_device=dev_connect,
                     line=line
                 )
