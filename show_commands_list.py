@@ -60,6 +60,11 @@ class Show_Commands():
                             f"show ip dhcp snooping",
                             f"show ip dhcp snooping statistics",
                             f"show ip dhcp snooping binding",
+                            f"show ip access-lists",
+                            f"show ip access-lists [access-list-number/access-list-name]",
+                            f"show ip nat statistics",
+                            f"show ip nat translations",
+                            f"show ip nat translations verbose",
                             f"show ipv6 interface [interface]",
                             f"show ipv6 interface brief",
                             f"show ipv6 route [connected/local/static]",
@@ -85,8 +90,6 @@ class Show_Commands():
                             f"show etherchannel [channel-group-number]",
                             f"show access-lists",
                             f"show access-lists [access-list-number/access-list-name]",
-                            f"show ip access-lists",
-                            f"show ip access-lists [access-list-number/access-list-name]",
                             f"show port-security",
                             f"show port-security address",
                             f"show port-security address forbiden",
@@ -105,6 +108,7 @@ class Show_Commands():
                             f"show lldp traffic",
                             f"show lldp interface [interface]",
                             ]
+        list_of_commands.sort()
 
 
         #Printing all of show commands in console so user can pick one of them.

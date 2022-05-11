@@ -18,6 +18,7 @@ import dhcp_snooping_config
 import logging_config
 import ntp_and_time_config
 import cdp_and_lldp_config
+import nat_config
 from setuptools._distutils.command.config import config
 
 
@@ -88,6 +89,8 @@ class Cisco_IOS_Switch():
             print("NTP/TIME CONFIGURATION")
         elif cfg == "cdp_and_lldp":
             print("CDP/LLDP CONFIGURATION")
+        elif cfg == "nat":
+            print("NAT CONFIGURATION")
         print("--------------------------------------")
 
         with open(config_file_path, mode="r") as devices_to_config_file:
@@ -266,6 +269,12 @@ class Cisco_IOS_Switch():
             elif cfg == "cdp_and_lldp":
                 obj = cdp_and_lldp_config.Cisco_CDP_And_LLDP_Config.cdp_and_lldp_config(
                     cdp_and_lldp_attributes_file=config_file_path,
+                    ssh_to_device=dev_connect,
+                    line=line
+                )
+            elif cfg == "nat":
+                obj = nat_config.Cisco_NAT_Config.nat_config(
+                    nat_attributes_file=config_file_path,
                     ssh_to_device=dev_connect,
                     line=line
                 )

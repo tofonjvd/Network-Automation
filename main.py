@@ -20,6 +20,7 @@ dhcp_snooping_config_file = "path to dhcp_snooping_config_file.csv"
 logging_config_file = "path to logging_config_file.csv"
 ntp_and_time_config_file = "path to ntp_and_time_config_file.csv"
 cdp_and_lldp_config_file = "path to cdp_and_lldp_config_file.csv"
+nat_config_file = "path to nat_config_file.csv"
 
 start = time.time()
 
@@ -101,10 +102,15 @@ obj_make_list_of_devices = devices_config.Cisco_IOS_Switch.make_devices(devices_
 #                              config_file_path=ntp_and_time_config_file,
 #                              cfg="ntp_and_time")
 
-obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
-                             all_devices=obj_make_list_of_devices,
-                             config_file_path=cdp_and_lldp_config_file,
-                             cfg="cdp_and_lldp")
+# obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
+#                              all_devices=obj_make_list_of_devices,
+#                              config_file_path=cdp_and_lldp_config_file,
+#                              cfg="cdp_and_lldp")
+
+# obj_device.devices_to_config(self=devices_config.Cisco_IOS_Switch,
+#                              all_devices=obj_make_list_of_devices,
+#                              config_file_path=nat_config_file,
+#                              cfg="nat")
 
 obj_show_data = show_commands_list.Show_Commands.commands_list(all_devices=obj_make_list_of_devices)
 
