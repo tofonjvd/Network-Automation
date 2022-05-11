@@ -28,6 +28,7 @@ This is the first version of my network automation program. You can add the valu
 - configure NTP.
 - configure CDP.
 - configure LLDP.
+- configure static NAT, dynamic NAT, and PAT.
 - export data from devices using different "show" commands in JSON.
 - and more !
   
